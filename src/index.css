@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,XOPQ,XTRA,YOPQ,YTDE,YTFI,YTLC,YTUC@8..144,100..1000,96,468,79,-203,738,514,712&display=swap');
+@import 'tailwindcss';
+
+@theme{
+    --font-display: "Roboto Flex", sans-serif;
+    /* Light Theme */
+    --color-FocusLight: #FFF2F2;
+    --color-TextLight: #471515;
+    --color-Focus-component: rgba(255, 76, 76, 0.15);
+    --color-Focus-middle: rgba(255, 76, 76, 0.50);
+    --color-BreakLight: #F2F9FF;
+    --color-BreakText: #153047;
+    --color-Break-middle: rgba(76, 172, 255, 0.70);
+    --color-Break-component: rgba(76, 172, 255, 0.15);
+
+    /* Dark Theme */
+    --color-BaseDark: #24273a;
+    --color-TextDark: #cad3f5;
+    --color-BlueDark: #8aadf4;
+    --color-SkyDark: #91d7e3;
+    --color-MaroonDark: #ee99a0;
+}
