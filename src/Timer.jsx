@@ -5,44 +5,42 @@ import alarm from './assets/alarm.mp3';
 
 export function Timer(){
     const [isRunning, setIsRunning] = useState(false);
-    const [elapseTime, setElapseTime] = useState(1000 * 5);
+    const [elapseTime, setElapseTime] = useState(5);
     const [isFocus, setIsFocus] = useState(true);
-    const intervalIdRef = useRef(null);
-    const startTimeRef = useRef(0);
     const sound = new Audio(alarm);
 
     useEffect(() => {
+        let timer;
 
         if(isRunning){
-            intervalIdRef.current = setInterval(() => {
-                setElapseTime(startTimeRef.current - Date.now())
-            }, 10);
+            timer = setInterval(() => {
+                setElapseTime(elapseTime - 1)
+            }, 1000);
 
         }
         console.log('useeffect')
 
         return () => {
             console.log('return')
-            clearInterval(intervalIdRef.current);
+            clearInterval(timer);
         }
 
-    }, [isRunning])
+    }, [isRunning, elapseTime])
 
     useEffect(() => {
 
-        if(elapseTime <= 60 && isRunning){
+        if(elapseTime === 0 && isRunning){
             console.log('elapse time: ', elapseTime)
             sound.play();
             setIsRunning(false);
-            forward();
-            console.log('second elapse time:', elapseTime)
+            setIsFocus(!isFocus);
+            setElapseTime(isFocus ? 3 : 5);
         }
         
-    }, [elapseTime, isRunning]);
+    }, [elapseTime]);
 
     function start(){
         setIsRunning(true);
-        startTimeRef.current = Date.now() + elapseTime;
     }
 
     function stop(){
@@ -50,27 +48,24 @@ export function Timer(){
     }
 
     function reset(){
-        setElapseTime(isFocus ? 1000 * 5 : 1000 * 3);
+        setElapseTime(isFocus ? 5 : 3);
         setIsRunning(false);
     }
 
     function forward(){
-        if(!isFocus){
-            setElapseTime(1000 * 5);
+        if(isFocus){
+            setElapseTime(3);
         } else {
-            setElapseTime(1000 * 3);
+            setElapseTime(5);
         }
         
         setIsFocus(!isFocus);
     }
 
     function formatTime(){
-        if(elapseTime <= 0){
-            return "00:00";
-        }
 
-        let minutes = Math.floor(elapseTime / (1000 * 60) % 60);
-        let second = Math.floor(elapseTime / (1000) % 60);
+        let minutes = Math.floor(elapseTime / (60) % 60);
+        let second = Math.floor(elapseTime % 60);
 
         minutes = String(minutes).padStart(2, "0");
         second = String(second).padStart(2, "0");
