@@ -1,3 +1,4 @@
+import { Setting } from './Setting.jsx';
 import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay, faEllipsis, faForward, faPause, faBrain, faArrowRotateRight, faMugHot } from '@fortawesome/free-solid-svg-icons';
@@ -7,7 +8,8 @@ export function Timer(){
     const [isRunning, setIsRunning] = useState(false);
     const [elapseTime, setElapseTime] = useState(5);
     const [isFocus, setIsFocus] = useState(true);
-    const sound = new Audio(alarm);
+    const [isSetting, setIsSetting] = useState(true);
+    const sound = useRef(null);
 
     useEffect(() => {
         let timer;
@@ -30,8 +32,9 @@ export function Timer(){
     useEffect(() => {
 
         if(elapseTime === 0 && isRunning){
+            sound.current = new Audio(alarm);
             console.log('elapse time: ', elapseTime)
-            sound.play();
+            sound.current.play();
             setIsRunning(false);
             setIsFocus(!isFocus);
             setElapseTime(isFocus ? 3 : 5);
@@ -41,6 +44,7 @@ export function Timer(){
 
     function start(){
         setIsRunning(true);
+        sound.current.pause()
     }
 
     function stop(){
@@ -60,6 +64,10 @@ export function Timer(){
         }
         
         setIsFocus(!isFocus);
+    }
+
+    function handleSetting(){
+        setIsSetting(true);
     }
 
     function formatTime(){
@@ -91,7 +99,7 @@ export function Timer(){
             <div className="flex justify-center gap-5">
                 {isRunning ?
                 <>
-                    <FontAwesomeIcon icon={faEllipsis}
+                    <FontAwesomeIcon icon={faEllipsis} onClick={handleSetting}
                     className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component' : 'text-BreakText bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                     <FontAwesomeIcon icon={faPause} onClick={stop}
                     className={`p-5 px-8 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-middle' : 'text-BreakText bg-Break-middle'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
@@ -100,7 +108,7 @@ export function Timer(){
                 </> 
                 : 
                 <>
-                    <FontAwesomeIcon icon={faEllipsis}
+                    <FontAwesomeIcon icon={faEllipsis} onClick={handleSetting}
                     className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component' : 'text-BreakText bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                     <FontAwesomeIcon icon={faPlay} onClick={start}
                     className={`p-5 px-8 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-middle' : 'text-BreakText bg-Break-middle'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
@@ -108,6 +116,7 @@ export function Timer(){
                     className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component' : 'text-BreakText bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                 </>
                 }
+                <Setting setting={isSetting} handleSet={handleSetting} />
             </div>
         </div>    
     );
