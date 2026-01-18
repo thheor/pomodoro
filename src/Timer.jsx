@@ -6,9 +6,17 @@ import alarm from './assets/alarm.mp3';
 
 export function Timer(){
     const [isRunning, setIsRunning] = useState(false);
-    const [elapseTime, setElapseTime] = useState(5);
     const [isFocus, setIsFocus] = useState(true);
-    const [isSetting, setIsSetting] = useState(true);
+    const [isSetting, setIsSetting] = useState(false);
+    const [dataSetting, setDataSetting] = useState({
+        focus: 20,
+        break: 5,
+        autoResume: false,
+        sound: true,
+    })
+    const [elapseTime, setElapseTime] = useState(dataSetting.focus);
+    const [isSound, setIsSound] = useState(dataSetting.sound);
+    const [isAutoResume, setIsAutoResume] = useState(dataSetting.autoResume);
     const sound = useRef(null);
 
     useEffect(() => {
@@ -21,7 +29,7 @@ export function Timer(){
 
         }
         console.log('useeffect')
-
+        
         return () => {
             console.log('return')
             clearInterval(timer);
@@ -30,21 +38,36 @@ export function Timer(){
     }, [isRunning, elapseTime])
 
     useEffect(() => {
+        console.log('useEffect 2')
 
         if(elapseTime === 0 && isRunning){
-            sound.current = new Audio(alarm);
+            if(isSound){
+                sound.current = new Audio(alarm);
+                sound.current.play();
+            }
             console.log('elapse time: ', elapseTime)
-            sound.current.play();
             setIsRunning(false);
             setIsFocus(!isFocus);
-            setElapseTime(isFocus ? 3 : 5);
+            setElapseTime(isFocus ? dataSetting.break : dataSetting.focus);
         }
         
     }, [elapseTime]);
 
+    useEffect(() => {
+
+        if(isSetting){
+            setElapseTime(isFocus ? dataSetting.focus : dataSetting.break);
+            console.log(dataSetting);
+        }
+
+    }, [isSetting, forward])
+
     function start(){
         setIsRunning(true);
-        sound.current.pause()
+
+        if(sound.current){
+            sound.current.pause();
+        }
     }
 
     function stop(){
@@ -58,17 +81,23 @@ export function Timer(){
 
     function forward(){
         if(isFocus){
-            setElapseTime(3);
+            setElapseTime(dataSetting.break);
         } else {
-            setElapseTime(5);
+            setElapseTime(dataSetting.focus);
         }
         
         setIsFocus(!isFocus);
     }
 
     function handleSetting(){
-        setIsSetting(true);
+        setIsSetting(!isSetting);
     }
+
+    function handleData(data, value){
+        setDataSetting((prev) => ({
+            ...prev,
+            [data]: value,
+    }))};
 
     function formatTime(){
 
@@ -116,7 +145,7 @@ export function Timer(){
                     className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component' : 'text-BreakText bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                 </>
                 }
-                <Setting setting={isSetting} handleSet={handleSetting} />
+                <Setting setting={isSetting} handleSet={handleSetting} isFocus={isFocus} handleInput={handleData} />
             </div>
         </div>    
     );
