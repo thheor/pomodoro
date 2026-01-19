@@ -10,4 +10,4 @@ Pomodoro Web App using React JS
 
 ## DEMO
 
-[demo]('https://github.com/thheor/pomodoro/blob/main/public/demo.gif?raw=true)
+![demo](https://github.com/thheor/pomodoro/blob/main/public/demo.gif?raw=true)
