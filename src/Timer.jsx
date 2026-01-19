@@ -113,7 +113,10 @@ export function Timer(){
     }
 
     return(
-        <div className={`w-screen h-screen overflow-hidden ${isFocus ? 'bg-FocusLight' : 'bg-BreakLight'}`}>
+        <>
+        <div className={`w-screen h-screen overflow-hidden 
+        ${isFocus ? 'bg-FocusLight' : 'bg-BreakLight'}
+        ${isSetting ? 'blur-[5px]' : ''}`}>
             <div className="flex justify-center h-20 items-center">
                 {isFocus ? 
                 <p className="font-display font-medium text-TextLight text-xl p-2 border border-Blue rounded-2xl">
@@ -147,8 +150,9 @@ export function Timer(){
                     className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                 </>
                 }
-                <Setting setting={isSetting} handleSet={handleSetting} isFocus={isFocus} handleInput={handleData} />
             </div>
         </div>    
+        <Setting setting={isSetting} handleSet={handleSetting} isFocus={isFocus} handleInput={handleData} />
+        </>
     );
 }

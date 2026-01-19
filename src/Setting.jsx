@@ -28,64 +28,66 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
     } 
 
     return(
-        <div className={`${setting ? 'block' : 'hidden'} absolute top-10 mx-auto w-100 h-120
-         ${isFocus ? 'bg-FocusLight border-Focus-middle' : 'bg-BreakLight border-Break-middle'} border rounded-3xl font-display`}>
-            <div className='relative'>
-                <h1 className="text-2xl font-semibold mt-3 ml-5">Settings</h1>
-                <FontAwesomeIcon icon={faXmark} onClick={handleSet}
-                className='absolute top-2 right-5 opacity-80 cursor-pointer' />
+        <div className='flex justify-center'>
+            <div className={`${setting ? 'block' : 'hidden'} absolute top-60 w-100 h-65
+             ${isFocus ? 'bg-FocusLight border-Focus-component/50' : 'bg-BreakLight border-Break-component/50'} border rounded-3xl font-display`}>
+                <div className='relative'>
+                    <h1 className="text-2xl font-semibold mt-3 ml-5">Settings</h1>
+                    <FontAwesomeIcon icon={faXmark} onClick={handleSet}
+                    className='absolute top-2 right-5 opacity-80 cursor-pointer' />
+                </div>
+                <form action="" className="flex flex-col justify-between gap-3 text-lg w-[90%] ml-5 mt-5">
+                    <div className='flex justify-between'>
+                        <label htmlFor="focus" className=''>Focus length</label>
+                        <input type="number" name='focus' id='focus' max={25} min={1} defaultValue={20} onChange={handleChange} 
+                        className='border rounded p-0.5 text-center cursor-pointer' />
+                    </div>
+                    <div className='flex justify-between'>
+                        <label htmlFor="break">Break length</label>
+                        <input type="number" name='break' id='break' max={25} min={1} defaultValue={5} onChange={handleChange} 
+                        className='border rounded p-0.5 text-center cursor-pointer' />
+                    </div>
+                    <div className='flex justify-between'> 
+                        <p>Auto resume</p>
+                        <button type="button" role="switch" aria-checked={isAutoResume} onClick={handleResume}
+                          className={`relative w-10 h-5 rounded-full outline transition-colors
+                            ${isFocus
+                              ? isAutoResume
+                                ? 'bg-pink-300 outline-Focus-component ring-Focus-component'
+                                : 'bg-neutral-quaternary outline-Focus-component ring-Focus-component'
+                              : isAutoResume
+                                ? 'bg-blue-300 outline-Break-component ring-Break-component'
+                                : 'bg-neutral-quaternary outline-Break-component ring-Break-component'
+                            }
+                            focus:outline-none focus:ring-1`}
+                        >
+                          <span className={`absolute top-[2px] left-[2px] h-4 w-4 rounded-full transition-transform
+                              ${isFocus ? 'bg-pink-500' : 'bg-blue-500'}
+                              ${isAutoResume ? 'translate-x-5' : 'translate-x-0'}`}/>
+                        </button>
+
+                    </div>
+                    <div className='flex justify-between'> 
+                        <p>Sound</p>
+                        <button type="button" role="switch" aria-checked={isSound} onClick={handleSound}
+                          className={`relative w-10 h-5 rounded-full outline transition-colors
+                            ${isFocus
+                              ? isSound
+                                ? 'bg-pink-300 outline-Focus-component ring-Focus-component'
+                                : 'bg-neutral-quaternary outline-Focus-component ring-Focus-component'
+                              : isSound
+                                ? 'bg-blue-300 outline-Break-component ring-Break-component'
+                                : 'bg-neutral-quaternary outline-Break-component ring-Break-component'
+                            }
+                            focus:outline-none focus:ring-1`}
+                        >
+                          <span className={`absolute top-[2px] left-[2px] h-4 w-4 rounded-full transition-transform
+                              ${isFocus ? 'bg-pink-500' : 'bg-blue-500'}
+                              ${isSound ? 'translate-x-5' : 'translate-x-0'}`}/>
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form action="" className="flex flex-col justify-between gap-3 w-[90%] ml-5 mt-5">
-                <div className='flex justify-between'>
-                    <label htmlFor="focus" className=''>Focus length</label>
-                    <input type="number" name='focus' id='focus' max={25} min={1} defaultValue={20} onChange={handleChange} 
-                    className='border rounded p-0.5 text-center cursor-pointer' />
-                </div>
-                <div className='flex justify-between'>
-                    <label htmlFor="break">Break length</label>
-                    <input type="number" name='break' id='break' max={25} min={1} defaultValue={5} onChange={handleChange} 
-                    className='border rounded p-0.5 text-center cursor-pointer' />
-                </div>
-                <div className='flex justify-between'> 
-                    <p>Auto resume</p>
-                    <button type="button" role="switch" aria-checked={isAutoResume} onClick={handleResume}
-                      className={`relative w-10 h-5 rounded-full outline transition-colors
-                        ${isFocus
-                          ? isAutoResume
-                            ? 'bg-pink-300 outline-Focus-component ring-Focus-component'
-                            : 'bg-neutral-quaternary outline-Focus-component ring-Focus-component'
-                          : isAutoResume
-                            ? 'bg-blue-300 outline-Break-component ring-Break-component'
-                            : 'bg-neutral-quaternary outline-Break-component ring-Break-component'
-                        }
-                        focus:outline-none focus:ring-1`}
-                    >
-                      <span className={`absolute top-[2px] left-[2px] h-4 w-4 rounded-full transition-transform
-                          ${isFocus ? 'bg-pink-500' : 'bg-blue-500'}
-                          ${isAutoResume ? 'translate-x-5' : 'translate-x-0'}`}/>
-                    </button>
-                        
-                </div>
-                <div className='flex justify-between'> 
-                    <p>Sound</p>
-                    <button type="button" role="switch" aria-checked={isSound} onClick={handleSound}
-                      className={`relative w-10 h-5 rounded-full outline transition-colors
-                        ${isFocus
-                          ? isSound
-                            ? 'bg-pink-300 outline-Focus-component ring-Focus-component'
-                            : 'bg-neutral-quaternary outline-Focus-component ring-Focus-component'
-                          : isSound
-                            ? 'bg-blue-300 outline-Break-component ring-Break-component'
-                            : 'bg-neutral-quaternary outline-Break-component ring-Break-component'
-                        }
-                        focus:outline-none focus:ring-1`}
-                    >
-                      <span className={`absolute top-[2px] left-[2px] h-4 w-4 rounded-full transition-transform
-                          ${isFocus ? 'bg-pink-500' : 'bg-blue-500'}
-                          ${isSound ? 'translate-x-5' : 'translate-x-0'}`}/>
-                    </button>
-                </div>
-            </form>
         </div>
     );
 }
