@@ -29,7 +29,7 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
 
     return(
         <div className='flex justify-center'>
-            <div className={`${setting ? 'block' : 'hidden'} absolute top-60 w-100 h-65
+            <div className={`${setting ? 'block' : 'hidden'} absolute top-50 w-100 h-75
              ${isFocus ? 'bg-FocusLight border-Focus-component/50' : 'bg-BreakLight border-Break-component/50'} border rounded-3xl font-display`}>
                 <div className='relative'>
                     <h1 className="text-2xl font-semibold mt-3 ml-5">Settings</h1>
@@ -37,18 +37,30 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
                     className='absolute top-2 right-5 opacity-80 cursor-pointer' />
                 </div>
                 <form action="" className="flex flex-col justify-between gap-3 text-lg w-[90%] ml-5 mt-5">
-                    <div className='flex justify-between'>
-                        <label htmlFor="focus" className=''>Focus length</label>
-                        <input type="number" name='focus' id='focus' max={25} min={1} defaultValue={20} onChange={handleChange} 
-                        className='border rounded p-0.5 text-center cursor-pointer' />
+                    <div className=''>
+                        <h2 className='font-medium'>Focus length</h2>
+                        <div className='flex justify-between'>
+                            <label htmlFor="focusMinutes" className='ml-5 opacity-90'>Minutes</label>
+                            <input type="number" name='focusMinutes' id='focusMinutes' max={30} min={0} defaultValue={20} onChange={handleChange} 
+                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                            <label htmlFor="focusSeconds" className='opacity-90'>Seconds</label>
+                            <input type="number" name='focusSeconds' id='focusSeconds' max={59} min={0} defaultValue={0} onChange={handleChange} 
+                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                        </div>
                     </div>
-                    <div className='flex justify-between'>
-                        <label htmlFor="break">Break length</label>
-                        <input type="number" name='break' id='break' max={25} min={1} defaultValue={5} onChange={handleChange} 
-                        className='border rounded p-0.5 text-center cursor-pointer' />
+                    <div className=''>
+                        <h2 className='font-medium'>Break length</h2>
+                        <div className='flex justify-between'>
+                            <label htmlFor="breakMinutes" className='ml-5 opacity-90'>Minutes</label>
+                            <input type="number" name='breakMinutes' id='breakMinutes' max={10} min={0} defaultValue={5} onChange={handleChange} 
+                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                            <label htmlFor="breakSeconds" className='opacity-90'>Seconds</label>
+                            <input type="number" name='breakSeconds' id='breakSeconds' max={59} min={0} defaultValue={0} onChange={handleChange} 
+                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                        </div>
                     </div>
                     <div className='flex justify-between'> 
-                        <p>Auto resume</p>
+                        <h2 className='font-medium'>Auto resume</h2>
                         <button type="button" role="switch" aria-checked={isAutoResume} onClick={handleResume}
                           className={`relative w-10 h-5 rounded-full outline transition-colors
                             ${isFocus
@@ -68,7 +80,7 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
 
                     </div>
                     <div className='flex justify-between'> 
-                        <p>Sound</p>
+                        <h2 className='font-medium'>Sound</h2>
                         <button type="button" role="switch" aria-checked={isSound} onClick={handleSound}
                           className={`relative w-10 h-5 rounded-full outline transition-colors
                             ${isFocus

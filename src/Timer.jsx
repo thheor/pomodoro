@@ -9,13 +9,18 @@ export function Timer(){
     const [isFocus, setIsFocus] = useState(true);
     const [isSetting, setIsSetting] = useState(false);
     const [dataSetting, setDataSetting] = useState({
-        focus: 20,
-        break: 5,
+        focusMinutes: 20,
+        focusSeconds: 0,
+        breakMinutes: 5,
+        breakSeconds: 0,
         autoResume: false,
         sound: true,
     })
-    const [elapseTime, setElapseTime] = useState(dataSetting.focus);
+    const [elapseTime, setElapseTime] = useState(dataSetting.focusMinutes * 60 + dataSetting.focusSeconds);
     const sound = useRef(null);
+
+    const focusTime = (dataSetting.focusMinutes * 60) + dataSetting.focusSeconds % 60;
+    const breakTime = dataSetting.breakMinutes * 60 + dataSetting.breakSeconds % 60;
 
     useEffect(() => {
         let timer;
@@ -50,7 +55,7 @@ export function Timer(){
             dataSetting.autoResume ? setIsRunning(true) : setIsRunning(false);
 
             setIsFocus(!isFocus);
-            setElapseTime(isFocus ? dataSetting.break : dataSetting.focus);
+            setElapseTime(isFocus ? breakTime : focusTime);
         }
         
     }, [elapseTime]);
@@ -58,7 +63,7 @@ export function Timer(){
     useEffect(() => {
 
         if(isSetting && !isRunning){
-            setElapseTime(isFocus ? dataSetting.focus : dataSetting.break);
+            setElapseTime(isFocus ? focusTime : breakTime);
             console.log(dataSetting);
         }
 
@@ -77,17 +82,12 @@ export function Timer(){
     }
 
     function reset(){
-        setElapseTime(isFocus ? dataSetting.focus : dataSetting.break);
+        setElapseTime(isFocus ? focusTime : breakTime);
         setIsRunning(false);
     }
 
     function forward(){
-        if(isFocus){
-            setElapseTime(dataSetting.break);
-        } else {
-            setElapseTime(dataSetting.focus);
-        }
-        
+        setElapseTime(isFocus ? breakTime : focusTime);        
         setIsFocus(!isFocus);
     }
 
