@@ -115,9 +115,9 @@ export function Timer(){
 
     return(
         <>
-        <div className={`w-screen h-screen overflow-hidden 
+        <div className={`w-screen h-screen overflow-x-hidden 
         ${isFocus ? 'bg-FocusLight' : 'bg-BreakLight'}
-        ${isSetting ? 'blur-[5px]' : ''}`}>
+        ${isSetting ? 'blur-[5px] pointer-events-none' : ''}`}>
             <div className="flex justify-center h-20 items-center">
                 {isFocus ? 
                 <p className="font-display font-medium text-TextLight text-xl p-2 border border-Blue rounded-2xl">
