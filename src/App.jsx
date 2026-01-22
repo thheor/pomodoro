@@ -1,4 +1,4 @@
-import { Timer } from './Timer.jsx'
+import { Timer } from './Components/Timer.jsx'
 
 export function App() {
 
