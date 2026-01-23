@@ -34,7 +34,7 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
                 <div className='relative'>
                     <h1 className="text-2xl font-semibold mt-3 ml-5">Settings</h1>
                     <FontAwesomeIcon icon={faXmark} onClick={handleSet}
-                    className='absolute top-2 right-5 opacity-80 cursor-pointer' />
+                    className='absolute top-1 right-5 p-1 rounded opacity-80 cursor-pointer hover:bg-Focus-component/70' />
                 </div>
                 <form action="" className="flex flex-col justify-between gap-3 text-lg w-[90%] ml-5 mt-5">
                     <div className=''>
