@@ -12,9 +12,8 @@
     --color-Break-component: rgb(76, 172, 255);
 
     /* Dark Theme */
-    /* --color-BaseDark: #24273a;
-    --color-TextDark: #cad3f5;
-    --color-BlueDark: #8aadf4;
-    --color-SkyDark: #91d7e3;
-    --color-MaroonDark: #ee99a0; */
+    --color-FocusDark: rgb(13, 4, 4);
+    --color-BreakDark: rgb(4, 9, 13);
+    --color-FocusTextDark: rgb(255, 242, 242);
+    --color-BreakTextDark: rgb(242, 249, 255);
 }
