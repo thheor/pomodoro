@@ -19,7 +19,6 @@ export function Timer(){
     })
     const [elapseTime, setElapseTime] = useState(dataSetting.focusMinutes * 60 + dataSetting.focusSeconds);
     const sound = useRef(null);
-
     const focusTime = (dataSetting.focusMinutes * 60) + dataSetting.focusSeconds % 60;
     const breakTime = dataSetting.breakMinutes * 60 + dataSetting.breakSeconds % 60;
 
@@ -50,13 +49,9 @@ export function Timer(){
                 sound.current = new Audio(alarm);
                 sound.current.play();
             }
-
-            console.log('elapse time: ', elapseTime)
+            // totalFocus++
             
-            dataSetting.autoResume ? setIsRunning(true) : setIsRunning(false);
-
-            setIsFocus(!isFocus);
-            setElapseTime(isFocus ? breakTime : focusTime);
+            forward();
         }
         
     }, [elapseTime]);
@@ -88,8 +83,9 @@ export function Timer(){
     }
 
     function forward(){
-        setIsRunning(false);
+        dataSetting.autoResume ? setIsRunning(true) : setIsRunning(false)
         setElapseTime(isFocus ? breakTime : focusTime);        
+        // if isRunning && isFocus then totalFocus++
         setIsFocus(!isFocus);
     }
 
@@ -117,39 +113,39 @@ export function Timer(){
     return(
         <>
         <div className={`w-screen h-screen overflow-x-hidden 
-        ${isFocus ? 'bg-FocusLight' : 'bg-BreakLight'}
+        ${isFocus ? 'bg-FocusLight dark:bg-FocusDark' : 'bg-BreakLight dark:bg-BreakDark'}
         ${isSetting ? 'blur-[5px] pointer-events-none' : ''}`}>
             <div className="flex justify-center h-20 items-center">
                 {isFocus ? 
-                <p className="font-display font-medium text-TextLight text-xl p-2 border border-Blue rounded-2xl">
+                <p className="font-display font-medium text-TextLight dark:text-FocusTextDark text-xl p-2 border border-Blue rounded-2xl">
                     <FontAwesomeIcon icon={faBrain} className="pr-1" /> 
-                    Focus 
+                    Focus
                 </p>
                 :
-                <p className="font-display font-medium text-BlueLight text-xl p-2 border border-Blue rounded-2xl">
+                <p className="font-display font-medium text-BlueLight dark:text-BreakTextDark text-xl p-2 border border-Blue rounded-2xl">
                     <FontAwesomeIcon icon={faMugHot} className="pr-1 mb-0.5" />
                     Break 
                 </p>}
             </div>
-            <div className={`font-display font-bold text-center text-[200px] w-auto hx-80 -mt-10 ${isFocus ? 'text-TextLight' : 'text-BreakText'}`}>{formatTime()}</div>
+            <div className={`font-display font-bold text-center text-[200px] w-auto hx-80 -mt-10 ${isFocus ? 'text-TextLight dark:text-FocusTextDark' : 'text-BreakText dark:text-BreakTextDark'}`}>{formatTime()}</div>
             <div className="flex justify-center gap-5 -mt-10">
                 {isRunning ?
                 <>
                     <FontAwesomeIcon icon={faArrowRotateRight} onClick={reset} 
-                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
+                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                     <FontAwesomeIcon icon={faPause} onClick={stop}
-                    className={`p-5 px-8 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component/60 hover:bg-Focus-component/80' : 'text-BreakText bg-Break-component/70 hover:bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
+                    className={`p-5 px-8 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/60 hover:bg-Focus-component/80' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/70 hover:bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
                     <FontAwesomeIcon icon={faForward} onClick={forward}
-                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
+                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                 </> 
                 : 
                 <>
                     <FontAwesomeIcon icon={faEllipsis} onClick={handleSetting}
-                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
+                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                     <FontAwesomeIcon icon={faPlay} onClick={start}
-                    className={`p-5 px-8 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component/60 hover:bg-Focus-component/80' : 'text-BreakText bg-Break-component/70 hover:bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
+                    className={`p-5 px-8 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/70 hover:bg-Focus-component/80' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/70 hover:bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
                     <FontAwesomeIcon icon={faForward} onClick={forward}
-                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
+                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                 </>
                 }
             </div>
