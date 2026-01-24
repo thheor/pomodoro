@@ -29,7 +29,7 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
 
     return(
         <div className='flex justify-center'>
-            <div className={`${setting ? 'block' : 'hidden'} absolute top-50 w-100 h-75
+            <div className={`${setting ? 'block' : 'hidden'} absolute top-50 w-100 max-sm:w-75 h-75
              ${isFocus ? 'bg-FocusLight border-Focus-component/50' : 'bg-BreakLight border-Break-component/50'} border rounded-3xl font-display`}>
                 <div className='relative'>
                     <h1 className="text-2xl font-semibold mt-3 ml-5">Settings</h1>
@@ -42,10 +42,10 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
                         <div className='flex justify-between'>
                             <label htmlFor="focusMinutes" className='ml-5 opacity-90'>Minutes</label>
                             <input type="number" name='focusMinutes' id='focusMinutes' max={30} min={0} defaultValue={20} onChange={handleChange} 
-                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                            className={`${isFocus ? 'bg-Focus-component/30' : 'bg-Break-component/40'} rounded p-0.5 text-center cursor-pointer`} />
                             <label htmlFor="focusSeconds" className='opacity-90'>Seconds</label>
                             <input type="number" name='focusSeconds' id='focusSeconds' max={59} min={0} defaultValue={0} onChange={handleChange} 
-                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                            className={`${isFocus ? 'bg-Focus-component/30' : 'bg-Break-component/40'} rounded p-0.5 text-center cursor-pointer`} />
                         </div>
                     </div>
                     <div className=''>
@@ -53,10 +53,10 @@ export function Setting({ setting, handleSet, isFocus, handleInput }){
                         <div className='flex justify-between'>
                             <label htmlFor="breakMinutes" className='ml-5 opacity-90'>Minutes</label>
                             <input type="number" name='breakMinutes' id='breakMinutes' max={10} min={0} defaultValue={5} onChange={handleChange} 
-                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                            className={`${isFocus ? 'bg-Focus-component/30' : 'bg-Break-component/40'} rounded p-0.5 text-center cursor-pointer`} />
                             <label htmlFor="breakSeconds" className='opacity-90'>Seconds</label>
                             <input type="number" name='breakSeconds' id='breakSeconds' max={59} min={0} defaultValue={0} onChange={handleChange} 
-                            className={`rounded p-0.5 bg-Focus-component/30 text-center cursor-pointer`} />
+                            className={`${isFocus ? 'bg-Focus-component/30' : 'bg-Break-component/40'} rounded p-0.5 text-center cursor-pointer`} />
                         </div>
                     </div>
                     <div className='flex justify-between'> 
