@@ -64,6 +64,7 @@ export function Task(props){
                         e.preventDefault();
 
                         const newList = task.map(items => items.id === list.id ? {id: items.id, item: input, desc: description, isDone: items.isDone, isSetting: false} : {id: items.id, item: items.item, desc: items.desc, isDone: items.isDone, isSetting: items.isSetting} )
+
                         console.log(newList);
                         setTask(newList);
                     }
@@ -103,7 +104,7 @@ export function Task(props){
 
                     return (
                     <li key={list.id}
-                    className={`${props.isFocus ? 'bg-Focus-component/70 dark:text-FocusTextDark' : 'dark:text-BreakTextDark bg-Break-component/30 '}
+                    className={`${props.isFocus ? 'bg-Focus-component/70 dark:text-FocusTextDark' : 'dark:text-BreakTextDark bg-Break-component/50 '}
                     ${list.isDone ? 'brightness-50' : `transiiton duration-150 ease-in-out ${list.isSetting ? 'scale-102' : 'hover:scale-102'}`}
                     relative text-xl font-medium mt-2 p-2 py-3 ${list.isSetting ? 'pl-5' : 'pl-12'} rounded-md max-w-md`}>
                     {list.isSetting ? 
@@ -136,7 +137,7 @@ export function Task(props){
                                 <p className="text-base dark:text-black">{list.desc}</p>
                             </div>}
                         <FontAwesomeIcon icon={faEllipsisVertical} onClick={handleSetting} 
-                        className="absolute -right-1 top-6.5 py-1 rounded transform -translate-x-1/2 -translate-y-1/2 hover:brightness-175 hover:bg-Focus-component cursor-pointer" />
+                        className={`absolute -right-1 top-6.5 py-1 rounded transform -translate-x-1/2 -translate-y-1/2 hover:brightness-175 ${props.isFocus ? 'hover:bg-Focus-component' : 'hover:bg-Break-component/50'} cursor-pointer`} />
                     </div> }
                 </li>)})}
                 </ul>
@@ -160,7 +161,7 @@ export function Task(props){
                     </div>
                 </form> :
                 <button onClick={handleAddTask}
-                className={`${props.isFocus ? 'dark:text-FocusTextDark bg-Focus-component/30 border-Focus-component hover:bg-Focus-component/80' : 'dark:text-BreakTextDark border-Break-component bg-Break-component/50 hover:bg-Break-component/80'}
+                className={`${props.isFocus ? 'dark:text-FocusTextDark bg-Focus-component/30 border-Focus-component hover:bg-Focus-component/80' : 'dark:text-BreakTextDark border-Break-component bg-Break-component/30 hover:bg-Break-component/60'}
                 transition ease-in-out duration-150 p-2 mt-5 w-100 px-3 border border-dashed rounded`}>
                 <FontAwesomeIcon icon={faCirclePlus} className="mr-2" />
                 Add your goals</button> }

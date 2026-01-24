@@ -106,6 +106,17 @@ export function Timer(){
 
         minutes = String(minutes).padStart(2, "0");
         second = String(second).padStart(2, "0");
+        
+        console.log(window.innerWidth);
+
+        if (window.innerWidth < 600) {
+          return (
+          <p className="flex flex-col items-center">
+            <span className="h-45">{minutes}</span>
+            <span>{second}</span>
+          </p>
+          )
+        }
 
         return `${minutes}:${second}`;
     }
@@ -127,7 +138,9 @@ export function Timer(){
                     Break 
                 </p>}
             </div>
-            <div className={`font-display font-bold text-center text-[200px] w-auto hx-80 -mt-10 ${isFocus ? 'text-TextLight dark:text-FocusTextDark' : 'text-BreakText dark:text-BreakTextDark'}`}>{formatTime()}</div>
+            <div className={`font-display font-bold text-center text-[200px] w-auto hx-80 -mt-10 
+            ${isFocus ? 'text-TextLight dark:text-FocusTextDark' : 'text-BreakText dark:text-BreakTextDark'}`}>
+            {formatTime()}</div>
             <div className="flex justify-center gap-5 -mt-10">
                 {isRunning ?
                 <>
