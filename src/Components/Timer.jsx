@@ -123,7 +123,7 @@ export function Timer(){
 
     return(
         <>
-        <div className={`w-screen h-screen overflow-x-hidden 
+        <div className={`w-screen h-screen overflow-x-hidden scroll-smooth
         ${isFocus ? 'bg-FocusLight dark:bg-FocusDark' : 'bg-BreakLight dark:bg-BreakDark'}
         ${isSetting ? 'blur-[5px] pointer-events-none' : ''}`}>
             <div className="flex justify-center h-20 sm:h-15 items-center">
@@ -145,13 +145,13 @@ export function Timer(){
                 {isRunning ?
                 <>
                     <FontAwesomeIcon icon={faArrowRotateRight} onClick={reset} 
-                    className={`max-p-5 max-sm:p-1 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' 
+                    className={`p-5 max-sm:p-3 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' 
                     : 'text-BreakText dark:text-BreakTextDark bg-Break-component/30 hover:bg-Break-component/60'} 
                     text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                     <FontAwesomeIcon icon={faPause} onClick={stop}
-                    className={`p-5 px-8 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/60 hover:bg-Focus-component/80' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/70 hover:bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
+                    className={`p-5 max-sm:p-3 px-8 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/60 hover:bg-Focus-component/80' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/70 hover:bg-Break-component'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:scale-105`} />
                     <FontAwesomeIcon icon={faForward} onClick={forward}
-                    className={`p-5 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
+                    className={`p-5 max-sm:p-3 cursor-pointer ${isFocus ? 'text-TextLight dark:text-FocusTextDark bg-Focus-component/20 hover:bg-Focus-component/50' : 'text-BreakText dark:text-BreakTextDark bg-Break-component/30 hover:bg-Break-component/60'} text-5xl transition duration-300 ease-in-out rounded-2xl hover:text-mainText hover:scale-105`} />
                 </> 
                 : 
                 <>
